@@ -24,7 +24,7 @@ function set_marker(lat) {
 }
 
 function setHeatmapOverlay(){
-    var heatmapData = getRomeData();
+    var heatmapData = getData();
     var heatmap = new google.maps.visualization.HeatmapLayer({
         data: heatmapData
     });
@@ -83,6 +83,12 @@ function test_google_plcases(callback) {
     // xmlHttp.setRequestHeader("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
     // xmlHttp.setRequestHeader("Access-Control-Allow-Origin", "*");
     xmlHttp.send(null);
+}
+
+
+function getData() {
+
+	return db.map((item, index) => ({location: new google.maps.LatLng(item.lat, item.lon), weight: item.weight}));
 }
 
 initialize();
