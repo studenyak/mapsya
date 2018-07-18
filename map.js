@@ -11,6 +11,18 @@ function initialize() {
     };
     map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 
+    google.maps.event.addListener(map, 'zoom_changed', function() {
+		zoomLevel = map.getZoom();
+	    initialBounds = map.getBounds();
+	    console.log(initialBounds);
+		console.log(zoomLevel)
+	});
+
+	// google.maps.event.addListener(map, 'bounds_changed', function() {
+	// 	initialBounds = map.getBounds();
+	// 	console.log(initialBounds);
+	// });
+
     setHeatmapOverlay();
     test_google_plcases();
 }
