@@ -2,6 +2,13 @@
  * Created by oleksandrstudenyak on 12.06.17.
  */
 var map;
+var db;
+
+$.getJSON("photospots.mwong.ch/db.json", function(json) {
+	db = json; // this will show the info it in firebug console
+	initialize();
+});
+
 function initialize() {
     var sanFrancisco = new google.maps.LatLng(42.719287, 12.112846);
     var myOptions = {
@@ -103,4 +110,4 @@ function getData() {
 	return db.map((item, index) => ({location: new google.maps.LatLng(item.lat, item.lon), weight: item.weight}));
 }
 
-initialize();
+// initialize();
