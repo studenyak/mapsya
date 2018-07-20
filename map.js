@@ -3,9 +3,10 @@
  */
 var map;
 var db;
+var heatmap;
 
 $.getJSON("photospots.mwong.ch/db.json", function(json) {
-	db = json; // this will show the info it in firebug console
+	db = json;
 	initialize();
 });
 
@@ -22,7 +23,13 @@ function initialize() {
 		zoomLevel = map.getZoom();
 	    initialBounds = map.getBounds();
 	    console.log(initialBounds);
-		console.log(zoomLevel)
+		console.log(zoomLevel);
+
+	    var intensity = [25000,10000,5000,2500,800,300,150,100,50,35,30,25,20,10,7,6,5,5,5,5,5];
+	    heatmap.setOptions({
+		    maxIntensity: intensity[zoomLevel],
+		    opacity: 1.0
+	    });
 	});
 
 	// google.maps.event.addListener(map, 'bounds_changed', function() {
@@ -44,8 +51,10 @@ function set_marker(lat) {
 
 function setHeatmapOverlay(){
     var heatmapData = getData();
-    var heatmap = new google.maps.visualization.HeatmapLayer({
-        data: heatmapData
+    heatmap = new google.maps.visualization.HeatmapLayer({
+        data: heatmapData,
+	    opacity: 1.0,
+	    maxIntensity: 100/map.getZoom()
     });
     heatmap.setMap(map);
 }
